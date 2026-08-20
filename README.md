@@ -1,77 +1,49 @@
 # hmdocwize/.github
 
-Canonical source for GitHub defaults in the `hmdocwize` organisation.
+Shared GitHub configuration for the `hmdocwize` organisation.
 
-## ⚠️ Read this before assuming the template is live
+## Pull request template
 
-GitHub reads *default community health files* from a repository literally named
-`.github` — but **only when that repository is public.** Per GitHub's own
-documentation: *"The `.github` repository must be public for most default
-community health files to be applied organization-wide. Private `.github`
-repositories are not supported."*
+`PULL_REQUEST_TEMPLATE.md` is the standard pull request description used across
+Docwize repositories. It has four sections, and each one exists to be answered
+before a change is merged rather than after it ships:
 
-**This repository is private**, and every repository in the org is private. So
-nothing here is inherited by anything. `PULL_REQUEST_TEMPLATE.md` in this repo is
-the canonical text; it takes effect in a repository only when that repository
-holds its own copy at `.github/PULL_REQUEST_TEMPLATE.md`.
-
-Two ways forward, and they compose — a per-repo copy always overrides the org
-default, so doing one does not block the other later:
-
-| | Effect | Cost |
-|---|---|---|
-| **Keep private, copy per repo** (current approach) | Applies only where copied | One file per repo; the copies drift silently |
-| **Make this repo public** | Applies to all 26 repos automatically, including future ones | The template and this README become world-readable — sanitise before flipping |
-
-If this repo is ever made public, strip anything that reads as an internal
-assessment first. A public statement that the change process previously had no
-security review step is an admission worth not publishing, and internal repo
-names do not need to be world-readable either.
-
-## What lives here
-
-| File | Status |
+| Section | Purpose |
 |---|---|
-| `PULL_REQUEST_TEMPLATE.md` | Canonical text. Copy into a repo's `.github/` to make it effective there. |
+| **What this changes** | The reviewer knows what behaviour is different before reading the diff |
+| **Linked request** | Ties the change to the Dev Request that authorised it, and to the engineering issue that tracks it |
+| **Security considerations** | The design-level security review for the change |
+| **Testing** / **Rollback** | What proves it works, and how it is undone |
 
-Rollout of the per-repo copies is tracked in:
+### Security considerations
 
-- `hmdocwize/portal#524`
-- `hmdocwize/docs#42`
-- `hmdocwize/docwize-dot-com#26`
+A short checklist of the ways a change can affect security: data exposure,
+authentication and authorisation, dependencies, secrets, data at rest, network
+exposure, and schema migrations. The author ticks what the change touches and
+explains each one; where nothing applies, there is an explicit box for that.
 
-## What cannot live here
+Automated tooling covers the classes of problem a scanner can detect. This
+section covers the ones only a person can answer — whether a change widens a
+tenant boundary, or moves customer data somewhere new. It is answered by the
+author and read during code review.
 
-**`CODEOWNERS` is not inheritable at all**, public or private. GitHub only reads
-it from the repository being changed (`CODEOWNERS`, `.github/CODEOWNERS`, or
-`docs/CODEOWNERS` on the base branch). Each repo needs its own; that is the main
-subject of the three issues above.
+This supports ISO/IEC 27001 **A.8.26** (application security requirements),
+which asks that security requirements be identified and specified while an
+application is being developed. **A.8.32** (change management) is served by the
+*Linked request* and *Rollback* sections.
 
-Two supported files are deliberately absent:
+## Using it in a repository
 
-- `SECURITY.md` — worth adding, but it needs a monitored contact address decided
-  first; an unanswered disclosure inbox is worse than none.
-- `profile/README.md` — renders publicly on the organisation page. An
-  outward-facing change, so it should be a deliberate one.
+Copy `PULL_REQUEST_TEMPLATE.md` to `.github/PULL_REQUEST_TEMPLATE.md` in the
+repository. GitHub then pre-fills it into every new pull request there.
 
-## Why the Security considerations section exists
+Keep the copy identical to this one so the wording stays consistent across
+repositories. If a repository needs a genuine variation, change it there and say
+why in the file.
 
-ISO 27001 **A.8.26 (application security requirements)** asks that security
-requirements be identified and specified *when developing applications* — at
-design time, not after the fact. The Scytale evidence item for it, *Change
-Request Design Security Review*, asks for a change checklist containing a
-security section.
+## Code owners
 
-The automated gates already in place (Snyk, Dependabot, Trivy, the lint and build
-jobs) find the classes of problem a scanner can find. None of them asks a human
-whether a change widens a tenant boundary or moves customer data somewhere new.
-That question is what this section adds.
-
-The related control **A.8.32 (change management)** is served by the *Linked
-request* and *Rollback* sections.
-
-## Related
-
-- Engineering evidence for these controls lives in the `infrastructure` repo under
-  `evidence-out/8.26-A.8.26-Application-security-requirements/`.
-- Policies, registers and the Statement of Applicability live in Scytale, not git.
+`CODEOWNERS` is intentionally not in this repository. GitHub reads it only from
+the repository being changed — `CODEOWNERS`, `.github/CODEOWNERS`, or
+`docs/CODEOWNERS` on the base branch — so it cannot be shared from here. Each
+repository defines its own.
