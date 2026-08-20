@@ -1,10 +1,8 @@
 <!--
-Org-wide pull request template. It applies to every repository in hmdocwize
-that does not define its own .github/PULL_REQUEST_TEMPLATE.md.
+Standard Docwize pull request description.
 
-Do not delete sections. If one does not apply, say so in a word - an empty
-section and a deleted section look identical to an auditor, and both look
-worse than "n/a".
+Keep every section. If one does not apply, say so in a word - "n/a" tells the
+reviewer you considered it, a deleted section tells them nothing.
 -->
 
 ## What this changes
@@ -28,9 +26,9 @@ Issue       = the engineering item.
 Tick every item this change touches, then explain each ticked item below.
 If none apply, tick the last box instead.
 
-This section is the design-level security review for the change. It is read
-during code review, not after deployment, and it is evidence for ISO 27001
-A.8.26 (application security requirements) and A.8.32 (change management).
+This section is the design-level security review for the change. It is
+answered by the author and read during code review, and it supports
+ISO/IEC 27001 A.8.26 (application security requirements).
 -->
 
 - [ ] **Data exposure** — changes what data is returned, logged, cached, exported, or sent to a third party
