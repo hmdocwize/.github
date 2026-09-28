@@ -13,12 +13,23 @@ reviewer you considered it, a deleted section tells them nothing.
 
 <!--
 Link the origin of this change. At least one of the two.
-Dev Request = the Docwize Portal record that carries the business approval.
-Issue       = the engineering item.
+Dev Request = the Docwize Portal record where the business raised the request.
+Issue       = the engineering change record.
+
+Use "Refs #", not "Closes #". The issue stays open until the production
+verification is posted on it; the change owner then closes it by hand.
 -->
 
 - Dev Request:
-- Closes #
+- Refs #
+
+## Change classification
+
+<!-- Tick one. For an emergency, say in "What this changes" why the normal lead time was not practical. -->
+
+- [ ] **Standard** — low-risk, repeatable change with an established procedure
+- [ ] **Normal** — planned change that needs its own review and approval
+- [ ] **Emergency** — urgent fix to restore service or stop an active security issue
 
 ## Security considerations
 
@@ -54,3 +65,11 @@ ISO/IEC 27001 A.8.26 (application security requirements).
 ## Rollback
 
 <!-- How is this undone if it misbehaves in production? "Revert the commit" is a valid answer when it is true. -->
+
+## Production verification
+
+<!--
+What will be checked in production after the deploy, and how? After the
+release, post the result on the linked issue with the Jenkins build number
+and the time, then close the issue.
+-->
